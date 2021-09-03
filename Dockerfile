@@ -1,14 +1,9 @@
-FROM node:12-slim
+FROM buildkite/puppeteer:latest
 
 WORKDIR /app
-
-COPY packaje*.json ./
-
-RUN npm install
-
 COPY . .
 
-CMD ["npm", "start"]
+RUN npm i
 
-
-
+EXPOSE 3000
+CMD [ "npm", "run", "start" ]

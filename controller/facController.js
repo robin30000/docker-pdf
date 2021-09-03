@@ -6,7 +6,7 @@ async function crearFactura(url) {
 
         // Abrir el navegador
         let browser = await puppeteer.launch({
-            //executablePath: 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
+
             ignoreDefaultArgs: ['--disable-extensions'],
             headless: true,
             devtools: true,
@@ -15,7 +15,7 @@ async function crearFactura(url) {
                 "--disable-dev-shm-usage",
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
-            ]  
+            ]
         });
 
         let page = await browser.newPage();
@@ -27,7 +27,6 @@ async function crearFactura(url) {
             'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
             'accept-encoding': 'gzip, deflate, br',
             'accept-language': 'en-US,en;q=0.9,en;q=0.8',
-        
         })
 
         await page.setRequestInterception(true);
@@ -49,7 +48,7 @@ async function crearFactura(url) {
             waitUntil: 'load',
             timeout: 0
         })
-        
+
         await page.type('input[name=input-email]', "adiaz@searchrebel.com");
         await page.type('input[name=input-password]', "limite123")
         await Promise.all([
