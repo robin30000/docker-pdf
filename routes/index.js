@@ -1,27 +1,22 @@
-const express = require("express");
-const router = express.Router();
-const PDFController = require('../controller/facController')
-const generatePdf = require("../controller/generatePdf");
+const express = require("express")
+const bodyParser = require('body-parser');
+const app = express();
+app.use(bodyParser.urlencoded({extended: false}));
 
-// Home Page
-/*router.get("/", (_, res) => {
-  res.sendFile("index.html");
-});*/
+const router = express.Router();
+const generatePdf = require('../controller/pdfController')
 
 router.get('/', (req, res) => {
-  res.render('home')
+    res.render('index')
 });
 
 // Download PDF Route
-/*router.get("/generate-pdf", async (req, res) => {
-  let result = await generatePdf(req.query.url);
-  res.attachment(`node-express-puppeteer-pdf-example.pdf`);
-  res.contentType("application/pdf");
-  res.send(result);
-});*/
+router.post("/descargar", async (req, res) => {
+    let url = req.body.url;
+    let result = await generatePdf(url);
+    res.contentType("application/pdf");
+    res.send(result);
+});
 
-// Rutas para las facturas
-router.get('/factura', PDFController.factura);
-router.get('/descargar', PDFController.descargar);
 
 module.exports = router;
